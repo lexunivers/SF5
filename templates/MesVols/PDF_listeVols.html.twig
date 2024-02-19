@@ -1,0 +1,63 @@
+{% block body %}
+
+<html>
+
+
+
+
+    {#<img src="C:\\wamp64\\www\\skyblue5421\\public\\img\\logo10.png">#}
+
+<body>
+	<img width="140px;" src="c:/wamp64/www/skyblue5421/public/img/logo10.png" alt="logo10">
+    <link rel="stylesheet" href="c:/wamp64/www/skyblue5421/public/css/pdf.css" type="text/css" />
+
+	<div class="row">
+		<h5>Compte de : {{app.user.firstname}} {{app.user.lastname}}</h5>	  
+		<h5>N° Pilote : {{app.user.id}} </h5>					
+		<h5>N°Comptable : {{app.user.comptepilote.id}}
+	
+
+<header>
+    <p>
+        Liste de mes Vols au : {{'now'|format_datetime(locale='fr') }}
+    </p>
+</header> 
+
+				<table class="table_vol" cellspacing="0">
+					<thead>
+						<tr class="table-primary">
+						  <th>Pilote</th>						
+						  <th>Date</th>
+						  <th>Avion</th>
+						  <th>Vol</th>
+						  <th>Instructeur</th>
+						  <th>Nature</th>
+						  <th>Durée</th>
+						  <th>Tarif</th>
+						  <th>€uros</th>
+						</tr>
+					</thead>					  
+							<tbody>							
+								{% for vol in vols%}
+									<tr style="font-size:12px;color:#3774f7;">
+					   
+									   <td>{{ vol.user}}</td>
+									   <td>{{ vol.datevol|date('d/m/Y') }}</td>
+									   <td>{{ vol.avion }}</td>
+									   <td>{{ vol.typevol }}</td>
+									   <td>{{ vol.instructeur }}</td>
+									   <td>{{ vol.naturevol}}</td>
+									   <td>{{ vol.dureeduvol | date('H:i') }}</td>
+									   <td>{{ vol.tarifapplicable | number_format(2, '.', ',') }}</td>
+									   <td>{{ vol.montantfacture | number_format(2, '.', ',') }}</td>
+								   </tr>
+
+								{% endfor %}
+							</tbody>						
+	</div>
+
+</body>
+</html>
+
+
+{% endblock body %}    

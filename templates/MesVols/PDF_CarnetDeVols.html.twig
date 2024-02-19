@@ -1,0 +1,144 @@
+<!DOCTYPE html>
+<html lang="fr">
+
+
+<style>
+    * {
+        font-family: DejaVu Sans, sans-serif;
+
+    }
+ 
+    .table_compte {
+        width: 1020px;
+        position: absolute;
+        top: 200px;
+
+ 
+    }
+ 
+    .table_compte td,
+    .table_compte th {
+        border: 1px solid #000000;
+        text-align: center;
+		color:blue;
+    }
+ 
+    .table_compte th {
+        border-bottom: 2px solid #000000;
+        background-color: #dddddd;
+    }
+
+	
+    .header p{
+        text-align: center;
+        margin-bottom: -5px;
+    }
+    .header{
+        position: absolute;
+        top: 0;
+        right: -20px;
+        width: 270px;
+        text-align: center;
+    }
+    .logo{
+        position: absolute;
+        top: 0;
+        left: -20px;
+        width: 120px;
+    	background: url(img/logo10.png);
+    }
+    .logo_faculte{
+        width: 120px;
+        height: auto;
+    }
+    .titres{
+        width: 630px;
+        position: absolute;
+        top: 50px;
+        left: 120px;
+        text-align: center;
+        font-size: 22px;
+    }
+    .signature{
+        position: absolute;
+        text-align: center;
+        left: 0;
+        bottom: 50px;
+        width: 250px;
+    }
+    .page_break {
+        page-break-after: always;
+    }
+</style>
+	<img width="200px;" src="assets/styles/img/logo10.png" alt="Mon logo10">
+
+<!--<div class="logo10" <a img src="{{ 'styles/img/logo10.png'}}" alt="logo!"/></div>-->
+	<div class="row">
+
+		<h5>Compte de : {{app.user.firstname}} {{app.user.lastname}}</h5>	  
+		<h5>N° Pilote : {{app.user.id}} </h5>					
+		<h5>N°Comptable : {{app.user.comptepilote.id}} - Edité le : {{ "now"|date("d/m/Y", "Europe/Paris") }} {#{{ 'now' | localizeddate('full', 'none') }} à {{ 'now' | localizeddate('none', 'short') }}#}
+			
+
+	
+		<div class="row">							
+			<div class="col-6">
+				<h3>Carnet de Vols de {{app.user.firstname}} {{app.user.lastname}}</h3>
+			</div>
+		</div>
+         </h5>	
+				<table class="table_compte" cellspacing="0">
+								<thead>
+								  <tr class="table-primary">
+						{#<tr class="table-primary"> #}											
+						<tr>					
+						  <th style="text-align:center;">Date</th>
+						  <th style="text-align:center;">Avion</th>					  
+                          <th style="text-align:center;">Fonction</th>  
+                          <th style="text-align:center;">Durée</th>
+                          <th style="text-align:center;">Double</th>
+                          <th style="text-align:center;">Cdt de bord</th>	
+						</tr>
+					</thead>
+						<tbody>
+						
+							{% for vol in vols %}
+							
+					        <tr style="font-size:12px;color: #3774f7;" align ="left">				   
+								{% set TempsVol = "" %}
+								<td style="text-align:center;font-weight: bold;color:#446e9b;">{{ vol.datevol|date('d/m/Y') }}</td>									   
+								<td style="text-align:center;font-weight: bold;color:#446e9b;">{{ vol.avion }}</td>                              						
+						                                
+                                <td style="text-align:center;font-weight: bold;color:#446e9b;">{{ vol.typevol }}</td>
+								<td style="text-align:center;font-weight: bold;color:#446e9b;">{{ vol.dureeduvol | date('H:i') }}</td>
+                             
+
+								{% if vol.typevol == 'Ecole' %}
+									<td style="text-align:center;font-weight: bold;color:#446e9b;">{{ vol.dureeduvol | date('H:i') }}</td>
+								{% else %}
+									<td style="text-align:center;font-weight: bold;color:#446e9b;">-</td>
+								{% endif %}
+
+								{% if  vol.typevol == 'Solo' %}
+									<td style="text-align:center;font-weight: bold;color:#446e9b;">{{ vol.dureeduvol | date('H:i') }}</td>
+
+								{% else %}
+									<td style="text-align:center;font-weight: bold;color:#446e9b;">-</td>
+								{% endif %}
+							{% endfor %}
+						</tbody>
+
+					  <th colspan="2"></th>
+					  
+
+					<td style="text-align:right;font-size: 15px; font-weight: bold;color: #010700;">Totaux:</td>															
+				  
+						<td style="text-align:center;font-weight: bold;color:#C42116;">{{ monTempsGlobal}}</td>
+      					<td style="text-align:center;font-weight: bold;color:#C42116;">{{ monTempsDouble}}</td>
+      					<td style="text-align:center;font-weight: bold;color:#C42116;">{{ monTempsSolo }}</td>					
+
+				</table>
+	</div>
+
+</body>
+</html>                  
